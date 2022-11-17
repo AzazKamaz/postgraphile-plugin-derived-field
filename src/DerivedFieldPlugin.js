@@ -49,6 +49,7 @@ function DerivedFieldPlugin(builder, { derivedFieldDefinitions }) {
           const attrs = introspectionResultsByKind.attribute
             .filter(attr => attr.classId === table.id)
             .filter(attr => columns.includes(attr.name));
+          attrs.sort((a, b) => columns.indexOf(a.name) - columns.indexOf(b.name));
           const fieldNames = attrs.map(attr => inflection.column(attr));
           const derivedFieldName = def.inflect(...fieldNames);
           if (memo[derivedFieldName]) {
